@@ -1,16 +1,29 @@
 import "./App.css";
-import { Redirect, Route, Switch } from "react-router-dom";
-import Test from "./components/Test";
+import { Route, Switch } from "react-router-dom";
+import Browse from "./pages/Browse/Browse";
+import Home from "./pages/Home/Home";
 import Layout from "./layout/Layout/Layout";
+import Social from "./pages/Social/Social";
+import SignUp from "./pages/SignUp/SignUp";
+import Forum from "./pages/Forum/Forum";
 function App() {
   return (
     <Layout>
       <Switch>
         <Route path="/" exact>
-          <Redirect to="/browse"></Redirect>
+          <Home />
         </Route>
         <Route path="/browse">
-          <Test />
+          <Browse />
+        </Route>
+        <Route path="/social">
+          <Social />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
+        <Route path="/forum">
+          <Forum />
         </Route>
       </Switch>
     </Layout>
