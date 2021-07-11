@@ -4,6 +4,10 @@ import { makeStyles } from "@material-ui/styles";
 import cssClasses from "./Home.module.css";
 import IconCard from "../../components/IconCard/IconCard";
 import * as iconArray from "../../DummyDataJson/DummyData.json";
+import ImageCard from "../../components/ImageCard/ImageCard";
+import useHttp from "../../hooks/useHttp";
+import { useEffect } from "react";
+import { enviornment } from "../../enviornment/enviornment";
 const useStyles = makeStyles({
     root: {
         flexGrow:1,
@@ -24,9 +28,22 @@ const useStyles = makeStyles({
 
 const Home = () => {
   const classes = useStyles();
+  const {
+      isLoading:trendingLoading,
+      error:trendingError,
+      response:trendingAnime,
+      fetchReq:fetchTrendingAnime
+  } = useHttp();
+
+  useEffect(()=>{
+    fetchTrendingAnime({
+        url:`${enviornment.baseURL}trending/anime?page[limit]=5&page[offset]=0`,
+        method:'GET',
+    })
+  },[])
   return (
     <Fragment>
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <div className={classes.container}>
           <div className={cssClasses.containerTitle}>
             <Typography
@@ -52,6 +69,15 @@ const Home = () => {
             </Grid>
           </div>
         </div>
+        
+        <Grid container spacing={2} justifyContent="space-evenly">
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+        </Grid>
+      
       </Container>
     </Fragment>
   );
