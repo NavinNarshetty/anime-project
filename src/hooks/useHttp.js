@@ -69,7 +69,7 @@ const useHttp = ()=>{
     return {
         isLoading:httpState.loading,
         error:httpState.error,
-        response:httpState.data,
+        response:httpState.data?.data,
         fetchReq:sendRequest
     }
 
