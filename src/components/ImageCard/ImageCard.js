@@ -10,19 +10,21 @@ const useStyles = makeStyles({
     },
 })
 
-const ImageCard = () =>{
+const ImageCard = (props) =>{
+    console.log("PROPS" , props)
+    const {response:card} = props
     const stlyes = useStyles()
     return (
        <Fragment>
            <Grid item xs={6} sm={2}>
                 <Paper className={stlyes.paper} elevation={0}>
-                    <a href="https://kitsu.io/api/edge/anime/1">
-                        <img alt="animeimage" className={classes.cardResponsive} src="https://media.kitsu.io/anime/poster_images/1/small.jpg?1431697256"></img>
+                    <a href={card.links.self}>
+                        <img alt="animeimage" className={classes.cardResponsive} src={card.attributes.posterImage.small}></img>
                     </a>
-                    <Typography component="h4">
-                        Header
-                    </Typography>
                 </Paper>
+                <Typography component="h4">
+                        {card.attributes.canonicalTitle}
+                    </Typography>
             </Grid>
        </Fragment>
     )
