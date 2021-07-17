@@ -1,0 +1,60 @@
+
+
+.ImageListCardNo {
+    align-self: center;
+}
+
+.imageHolder {
+    width: 60px;
+    height: auto;
+    margin: 8px 0px;
+}
+
+.imageCardTitleGenereContainer {
+    margin-left:8px !important
+}
+
+.imageCardBadge span{
+    font-size: 10px;
+    background-color: #2b2e42;
+    color:#adc0d3;
+    margin: 8px 8px 0px 0px;
+    padding: 8px;
+    border-radius: 18px;
+}
+
+.animeranking{
+    font-size: 2.5rem !important;
+}
+
+
+
+.imageCardContainer p{
+    margin: 0px;
+
+}
+
+.imageCardContainer{
+    margin: 8px !important;
+}
+
+.imageCardPaperContainer{
+    margin: 8px 0px !important;
+}
+
+.imageMoodCardHolder{
+    display: flex;
+}
+
+.moodIcon_spacing{
+    margin-right: 5px !important;
+}
+
+.imagecanonicalTitle{
+    margin-bottom: 10px;
+}
+
+.animecardimage{
+    margin-left: -16px;
+}
+

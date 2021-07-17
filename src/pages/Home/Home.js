@@ -35,25 +35,32 @@ const Home = () => {
   } = useHttp();
 
   const {
-      isLoading:trendingMangaLoading,
-      error:trendingMangaError,
-      response: trendingManga,
-      fetchReq:fetchTrendingManga
+    isLoading: trendingMangaLoading,
+    error: trendingMangaError,
+    response: trendingManga,
+    fetchReq: fetchTrendingManga,
   } = useHttp();
 
   const {
-    isLoading:mostpopularLoading,
-    error:mostpopularError,
-    response:mostpopularAnime,
-    fetchReq:fetchMostPopularAnime
+    isLoading: mostpopularLoading,
+    error: mostpopularError,
+    response: mostpopularAnime,
+    fetchReq: fetchMostPopularAnime,
   } = useHttp();
 
   const {
-    isLoading:mostfaveLoading,
-    error:mostfaveError,
-    response:mostFavAnime,
-    fetchReq:fetchMostFavoriteAnime
-  } = useHttp()
+    isLoading: mostfaveLoading,
+    error: mostfaveError,
+    response: mostFavAnime,
+    fetchReq: fetchMostFavoriteAnime,
+  } = useHttp();
+
+  const {
+    isLoading: topAnimeLoading,
+    error: topAnimeError,
+    response: topAnime,
+    fetchReq: fetchTopAnime,
+  } = useHttp();
 
   useEffect(() => {
     fetchTrendingAnime({
@@ -61,47 +68,64 @@ const Home = () => {
       method: "GET",
     });
     fetchTrendingManga({
-        url:`${enviornment.baseURL}trending/manga`,
-        method:'GET'
-    })
+      url: `${enviornment.baseURL}trending/manga`,
+      method: "GET",
+    });
     fetchMostPopularAnime({
-        url:`${enviornment.baseURL}anime?sort=popularityRank&page[limit]=5&page[offset]=0`,
-        method:'GET'
-    })
+      url: `${enviornment.baseURL}anime?sort=popularityRank&page[limit]=5&page[offset]=0`,
+      method: "GET",
+    });
     fetchMostFavoriteAnime({
-        url:`${enviornment.baseURL}anime?sort=-favoritesCount&page[limit]=5&page[offset]=0`,
-        method:'GET'
-    })
-  }, [fetchTrendingAnime,fetchTrendingManga , fetchMostPopularAnime,fetchMostFavoriteAnime]);
+      url: `${enviornment.baseURL}anime?sort=-favoritesCount&page[limit]=5&page[offset]=0`,
+      method: "GET",
+    });
+    fetchTopAnime({
+      url: `${enviornment.baseURL}anime?sort=popularityRank&page[limit]=10&page[offset]=0`,
+      method: "GET",
+    });
+  }, [
+    fetchTrendingAnime,
+    fetchTrendingManga,
+    fetchMostPopularAnime,
+    fetchMostFavoriteAnime,
+    fetchTopAnime,
+  ]);
 
   let imagecard = "";
   if (trendingAnime && trendingAnime.length > 0) {
-    imagecard =  trendingAnime.slice(0, 5).map((card) => {
+    imagecard = trendingAnime.slice(0, 5).map((card) => {
       return <ImageCard key={card.id} response={card} />;
     });
   } else {
   }
 
-  let  mangacard ="";
-  if(trendingManga && trendingManga.length > 0){
-    mangacard = trendingManga.slice(0,5).map((mangacard)=>{
-        return <ImageCard key={mangacard.id} response={mangacard} />
-    })
+  let mangacard = "";
+  if (trendingManga && trendingManga.length > 0) {
+    mangacard = trendingManga.slice(0, 5).map((mangacard) => {
+      return <ImageCard key={mangacard.id} response={mangacard} />;
+    });
   }
 
-  let mostpopularcard ="";
-  if(mostpopularAnime && mostpopularAnime.length > 0){
-      mostpopularcard = mostpopularAnime.map((card)=>{
-        return <ImageCard key={card.id} response={card} />
-      })
+  let mostpopularcard = "";
+  if (mostpopularAnime && mostpopularAnime.length > 0) {
+    mostpopularcard = mostpopularAnime.map((card) => {
+      return <ImageCard key={card.id} response={card} />;
+    });
   }
 
-  let mostfavoriteanime="";
-  if(mostFavAnime && mostFavAnime.length > 0){
-    mostfavoriteanime = mostFavAnime.map((card)=>{
-      return <ImageCard key={card.id} response={card} />
+  let mostfavoriteanime = "";
+  if (mostFavAnime && mostFavAnime.length > 0) {
+    mostfavoriteanime = mostFavAnime.map((card ) => {
+      return <ImageCard key={card.id} response={card} />;
+    });
+  }
+
+  let topAnimeResp = "";
+  if(topAnime && topAnime.length > 0) {
+    topAnimeResp = topAnime.map((card,index)=>{
+        return <ImageListCard key={card.id} response={card} ranking={index + 1}  genere={card.relationships.genres.links.related}/>
     })
-}
+  }
 
   return (
     <Fragment>
@@ -136,32 +160,32 @@ const Home = () => {
         </div>
 
         <div>
-            <h4>TRENDING ANIME</h4>
-            <Grid container spacing={2} justifyContent="space-evenly">
+          <h4>TRENDING ANIME</h4>
+          <Grid container spacing={2} justifyContent="space-evenly">
             {imagecard}
-            </Grid>
+          </Grid>
         </div>
         <div>
-            <h4>MOST POPULAR ANIME</h4>
-            <Grid container spacing={2} justifyContent="space-evenly">
+          <h4>MOST POPULAR ANIME</h4>
+          <Grid container spacing={2} justifyContent="space-evenly">
             {mostpopularcard}
-            </Grid>
+          </Grid>
         </div>
         <div>
-            <h4>MOST FAVORED ANIME</h4>
-            <Grid container spacing={2} justifyContent="space-evenly">
-                {mostfavoriteanime}
-            </Grid>
+          <h4>MOST FAVORED ANIME</h4>
+          <Grid container spacing={2} justifyContent="space-evenly">
+            {mostfavoriteanime}
+          </Grid>
         </div>
         <div>
-            <h4>TRENDING MANGA</h4>
-            <Grid container spacing={2} justifyContent="space-evenly">
+          <h4>TRENDING MANGA</h4>
+          <Grid container spacing={2} justifyContent="space-evenly">
             {mangacard}
-            </Grid>
+          </Grid>
         </div>
         <div>
-            <h4>Top 10 Anime</h4>
-            <ImageListCard />
+          <h4>Top 10 Anime</h4>
+          {topAnimeResp}
         </div>
       </Container>
     </Fragment>

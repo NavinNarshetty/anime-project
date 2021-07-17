@@ -11,7 +11,6 @@ const useStyles = makeStyles({
 })
 
 const ImageCard = (props) =>{
-    console.log("PROPS" , props)
     const {response:card} = props
     const stlyes = useStyles()
     return (
