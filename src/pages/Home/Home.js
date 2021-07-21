@@ -9,6 +9,7 @@ import ImageListCard from "../../components/imageListCard/ImageListCard";
 import useHttp from "../../hooks/useHttp";
 import { useEffect } from "react";
 import { enviornment } from "../../enviornment/enviornment";
+import { useHistory } from "react-router-dom";
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -27,6 +28,7 @@ const useStyles = makeStyles({
 
 const Home = () => {
   const classes = useStyles();
+  const history = useHistory();
   const {
     isLoading: trendingLoading,
     error: trendingError,
@@ -91,10 +93,15 @@ const Home = () => {
     fetchTopAnime,
   ]);
 
+
+  const redireactToDetailPage =(id)=>{
+    history.push(`/anime/${id}`)
+  }
+
   let imagecard = "";
   if (trendingAnime && trendingAnime.length > 0) {
     imagecard = trendingAnime.slice(0, 5).map((card) => {
-      return <ImageCard key={card.id} response={card} />;
+      return <ImageCard onClick={redireactToDetailPage} key={card.id} response={card} />;
     });
   } else {
   }
