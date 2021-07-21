@@ -6,6 +6,7 @@ import Layout from "./layout/Layout/Layout";
 import Social from "./pages/Social/Social";
 import SignUp from "./pages/SignUp/SignUp";
 import Forum from "./pages/Forum/Forum";
+import AnimeDetail from "./pages/Detail/AnimeDetail";
 function App() {
   return (
     <Layout>
@@ -15,6 +16,9 @@ function App() {
         </Route>
         <Route path="/browse">
           <Browse />
+        </Route>
+        <Route path="/anime/:id">
+          <AnimeDetail />
         </Route>
         <Route path="/social">
           <Social />
