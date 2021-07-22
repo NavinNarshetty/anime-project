@@ -28,15 +28,23 @@ const AnimeDetail = memo(() => {
     fetchReq: fetchAnimeInfo,
   } = useHttp();
 
+  const {
+    response: stremingLinksResponse,
+    fetchReq: fetchStreamLinks,
+  } = useHttp();
+
   useEffect(() => {
     fetchAnimeInfo({
       url: `${enviornment.baseURL}anime/${id}`,
       method: "GET",
     });
-  }, [id, fetchAnimeInfo]);
+    fetchStreamLinks({
+        url:`${enviornment.baseURL}anime/${id}/streaming-links`,
+        method: "GET",
+    })
+  }, [id, fetchAnimeInfo ,fetchStreamLinks]);
 
-  console.log(animeDetailReponse, id);
-
+  console.log(stremingLinksResponse)
   const coverimagecard = () => {
     return (
       <CoverImageCard
@@ -84,7 +92,7 @@ const AnimeDetail = memo(() => {
 
         <Grid container >
           <Grid item md={3}>
-            {animeDetailReponse && <AnimeSideNav animeDetails={animeDetailReponse.attributes} />}
+            { (animeDetailReponse && stremingLinksResponse)  && <AnimeSideNav streamLinks={stremingLinksResponse} animeDetails={animeDetailReponse.attributes} />}
           </Grid>
           <Grid item md={9}>
             <p>Grid 2</p>
