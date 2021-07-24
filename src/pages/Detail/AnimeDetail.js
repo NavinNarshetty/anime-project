@@ -1,5 +1,5 @@
-import { Fragment, useEffect, memo } from "react";
-import { Container, Grid ,List , ListItem , ListItemText} from "@material-ui/core";
+import { Fragment, useEffect, memo , useState} from "react";
+import { Button, Container, Grid ,List , ListItem , ListItemText} from "@material-ui/core";
 import CoverImageCard from "../../components/CoverImageCard/CoverImageCard";
 import ContentWithTitle from "../../components/ContentWithTitle/ContentWithTitle";
 import { useParams } from "react-router-dom";
@@ -7,6 +7,7 @@ import useHttp from "../../hooks/useHttp";
 import { enviornment } from "../../enviornment/enviornment";
 import { makeStyles } from "@material-ui/styles";
 import AnimeSideNav from "../../components/AnimeSideNav/AnimeSideNav";
+import ViedoModal from "../../components/VideoModal/ViedoModal";
 
 const useStyles = makeStyles({
   image: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles({
 const AnimeDetail = memo(() => {
   const { id } = useParams();
   const classes = useStyles();
+  const [isTrailerModal , setTrailerModal] = useState(false)
   const {
     isLoading,
     error,
@@ -76,6 +78,12 @@ const AnimeDetail = memo(() => {
     );
   }
 
+  const onModalHandlerAndBackDropClick =()=>{
+      setTrailerModal((prevState)=>{
+        return !prevState
+      })
+  }
+
   return (
     <Fragment>
       <Container maxWidth="lg">
@@ -84,6 +92,8 @@ const AnimeDetail = memo(() => {
         <Grid container>
           <Grid item md={3} className={classes.imageCardHolder}>
             {animeDetailReponse && img()}
+            <Button color="primary" variant="contained" onClick={onModalHandlerAndBackDropClick}>View Trailer</Button>
+            { isTrailerModal && <ViedoModal src={animeDetailReponse.attributes.youtubeVideoId} onConfirm={onModalHandlerAndBackDropClick}/>}
           </Grid>
           <Grid item md={9}>
             {animeDetailReponse && contentWithTitle}
@@ -95,7 +105,8 @@ const AnimeDetail = memo(() => {
             { (animeDetailReponse && stremingLinksResponse)  && <AnimeSideNav streamLinks={stremingLinksResponse} animeDetails={animeDetailReponse.attributes} />}
           </Grid>
           <Grid item md={9}>
-            <p>Grid 2</p>
+            <div>Grid 2</div>
+            
           </Grid>
         </Grid>
       </Container>
