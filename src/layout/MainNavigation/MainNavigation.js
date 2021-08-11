@@ -1,10 +1,16 @@
 import { NavLink } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
-
+import { useHistory } from "react-router-dom";
 const MainNavigation = ()=>{
+    const history = useHistory()
+    
+    const goToHomeRoute =()=>{
+        history.push(`/`)
+    }
+
     return (
         <header className={classes.header}>
-            <div className={classes.logo}>Anime Project</div>
+            <div className={classes.logo} onClick={goToHomeRoute}>Anime Project</div>
             <nav className={classes.nav}>
                 <ul>
                 <li>
