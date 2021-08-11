@@ -6,6 +6,7 @@ import Layout from "./layout/Layout/Layout";
 import Social from "./pages/Social/Social";
 import SignUp from "./pages/SignUp/SignUp";
 import Forum from "./pages/Forum/Forum";
+import MyList from "./pages/MyList/MyList";
 import AnimeDetail from "./pages/Detail/AnimeDetail";
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
         </Route>
         <Route path="/forum">
           <Forum />
+        </Route>
+        <Route path="/mylist">
+          <MyList />
         </Route>
       </Switch>
     </Layout>

@@ -19,6 +19,9 @@ const MainNavigation = ()=>{
                     <li>
                         <NavLink activeClassName={classes.active} alt="signup" to="/signup">Signup</NavLink>
                     </li>
+                    <li>
+                        <NavLink activeClassName={classes.active} alt="mylist" to="/mylist">MyList</NavLink>
+                    </li>
                 </ul>
             </nav>
         </header>
