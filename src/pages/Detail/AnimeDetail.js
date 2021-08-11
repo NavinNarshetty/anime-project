@@ -9,6 +9,9 @@ import { makeStyles } from "@material-ui/styles";
 import AnimeSideNav from "../../components/AnimeSideNav/AnimeSideNav";
 import ViedoModal from "../../components/VideoModal/ViedoModal";
 
+import { useDispatch } from "react-redux";
+import { myListActions } from "../../store/mylist";
+
 const useStyles = makeStyles({
   image: {
     height: "300px",
@@ -17,9 +20,18 @@ const useStyles = makeStyles({
     textAlign: "center",
     marginTop: "-100px",
   },
+  buttonHolder:{
+      listStyle:"none",
+      padding:0,
+      margin:0,
+  },
+  buttonitem:{
+      margin:'8px 0px',
+  }
 });
 
 const AnimeDetail = memo(() => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const classes = useStyles();
   const [isTrailerModal , setTrailerModal] = useState(false)
@@ -77,12 +89,31 @@ const AnimeDetail = memo(() => {
       ></ContentWithTitle>
     );
   }
-
   const onModalHandlerAndBackDropClick =()=>{
-      setTrailerModal((prevState)=>{
-        return !prevState
-      })
+    setTrailerModal((prevState)=>{
+      return !prevState
+    })
   }
+
+  const onAddToWatchList=()=>{
+    dispatch(myListActions.addItemToMyList(animeDetailReponse))
+  }
+
+  let viewButtons="";
+   if(animeDetailReponse){
+    viewButtons = (
+        <ul className={classes.buttonHolder}>
+            <li className={classes.buttonitem}>
+              <Button color="primary" variant="contained" onClick={onModalHandlerAndBackDropClick}>View Trailer</Button>
+            </li>
+            <li>
+            <Button color="primary" variant="contained" onClick={onAddToWatchList}>Add WatchList</Button>
+            </li>
+        </ul>
+  )
+   }
+
+  
 
   return (
     <Fragment>
@@ -92,8 +123,9 @@ const AnimeDetail = memo(() => {
         <Grid container>
           <Grid item md={3} className={classes.imageCardHolder}>
             {animeDetailReponse && img()}
-            <Button color="primary" variant="contained" onClick={onModalHandlerAndBackDropClick}>View Trailer</Button>
-            { isTrailerModal && <ViedoModal src={animeDetailReponse.attributes.youtubeVideoId} onConfirm={onModalHandlerAndBackDropClick}/>}
+            {animeDetailReponse && viewButtons}
+            
+            { animeDetailReponse && isTrailerModal && <ViedoModal src={animeDetailReponse.attributes.youtubeVideoId} onConfirm={onModalHandlerAndBackDropClick}/>}
           </Grid>
           <Grid item md={9}>
             {animeDetailReponse && contentWithTitle}
