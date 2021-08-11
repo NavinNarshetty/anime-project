@@ -96,7 +96,9 @@ const AnimeDetail = memo(() => {
   }
 
   const onAddToWatchList=()=>{
-    dispatch(myListActions.addItemToMyList(animeDetailReponse))
+    let animecardResponse = animeDetailReponse;
+    animecardResponse['isFav']= true;
+    dispatch(myListActions.addItemToMyList(animecardResponse))
   }
 
   let viewButtons="";

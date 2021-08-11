@@ -109,21 +109,21 @@ const Home = () => {
   let mangacard = "";
   if (trendingManga && trendingManga.length > 0) {
     mangacard = trendingManga.slice(0, 5).map((mangacard) => {
-      return <ImageCard key={mangacard.id} response={mangacard} />;
+      return <ImageCard onClick={redireactToDetailPage} key={mangacard.id} response={mangacard} />;
     });
   }
 
   let mostpopularcard = "";
   if (mostpopularAnime && mostpopularAnime.length > 0) {
     mostpopularcard = mostpopularAnime.map((card) => {
-      return <ImageCard key={card.id} response={card} />;
+      return <ImageCard onClick={redireactToDetailPage} key={card.id} response={card} />;
     });
   }
 
   let mostfavoriteanime = "";
   if (mostFavAnime && mostFavAnime.length > 0) {
     mostfavoriteanime = mostFavAnime.map((card ) => {
-      return <ImageCard key={card.id} response={card} />;
+      return <ImageCard onClick={redireactToDetailPage} key={card.id} response={card} />;
     });
   }
 
