@@ -1,0 +1,24 @@
+.cardResponsive {
+    width: 100%;
+    height: auto;
+}
+
+.cardContainer {
+    
+}
+
+.cardActionHolder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.cardContentHolder{
+    padding: 8px;
+}
+
+
+
+
+
+
