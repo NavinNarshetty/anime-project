@@ -12,9 +12,9 @@ const myListSlice = createSlice({
             state.items.push(action.payload)
         },
         removeitemFromMyList(state,action){
-            state.items.filter((value)=>{
-                return value.id != action.payload.id
-            })
+           state.items = state.items.filter((value)=>{
+               return value.id === action.payload
+           })
         }
 
     }
