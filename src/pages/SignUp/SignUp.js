@@ -12,9 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import useHttp from "../../hooks/useHttp";
 import { enviornment } from '../../enviornment/enviornment';
 import AuthContext from "../../store/auth-context";
+import { useHistory } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -55,7 +55,7 @@ export default function SignUp() {
   const authCtxt = useContext(AuthContext);
   const emailRef = useRef()
   const passwordRef = useRef()
-
+  const history =useHistory()
   const toggleSignUp =()=>{
     setIsLogin((prevState) => !prevState);
   }
@@ -91,7 +91,9 @@ export default function SignUp() {
     })
     .then((data)=>{
         if(isLogin){
-            authCtxt.login(data.idToken)
+            const expiresintoken = new Date(new Date().getTime() + +data.expiresIn * 1000);
+            authCtxt.login(data.idToken , expiresintoken.toISOString());
+            history.replace('/')
         }
     })
   }

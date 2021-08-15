@@ -13,7 +13,7 @@ const MainNavigation = ()=>{
 
     return (
         <header className={classes.header}>
-            <div className={classes.logo} onClick={goToHomeRoute}>Anime Project</div>
+            {isLogIn && <div className={classes.logo} onClick={goToHomeRoute}>Anime Project</div>}
             <nav className={classes.nav}>
                 <ul>
                     {isLogIn && <li>
