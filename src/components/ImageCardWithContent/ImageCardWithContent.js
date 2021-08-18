@@ -1,20 +1,30 @@
 import { useState } from "react";
-import {  Container, Grid, Paper, Typography } from "@material-ui/core";
+import {  Container, Grid, IconButton, Paper, Tooltip, Typography } from "@material-ui/core";
 import classes from "./ImageCardWithContent.module.css";
 import MoodIcon from '@material-ui/icons/Mood';
 import GradeIcon from '@material-ui/icons/Grade';
+import YouTubeIcon from '@material-ui/icons/YouTube';
+import ViedoModal from "../VideoModal/ViedoModal";
 
 const ImageCardWithContent = (props)=>{
     const {response:card} = props
-
-    
+    const [openModal , setModal] = useState(false)
+    const [applyScroll , setScroll] = useState(false)
 
     const mouseEnterhandler = ()=>{
-        // setHover(true)
+        setScroll(true)
+    }
+
+    const onModalHandlerAndBackDropClick = ()=>{
+        setModal((prev)=> !prev)
     }
 
     const mouseLeavehandler = ()=>{
-        // setHover(false);
+        setScroll(false)
+    }
+
+    const onViewTrailer = ()=>{
+        setModal(true);
     }
 
     return (
@@ -42,12 +52,18 @@ const ImageCardWithContent = (props)=>{
                                 <span><GradeIcon fontSize="small"/></span>
                                 <span className={classes.carddetailinfo}># {card.attributes.popularityRank}</span>
                              </Typography>
-                         </div>
-                         <div style={{display:'none'}}>
-                             transition
+                             <Typography component="div">
+                              <Tooltip title="Watch Trailer" placement="right">
+                                {/* <IconButton aria-label="watch trailer" > */}
+                                    <YouTubeIcon style={{cursor:'pointer'}} onClick={onViewTrailer}/>
+                                {/* </IconButton> */}
+                              </Tooltip>
+                             </Typography>
+                            
+                             {openModal && <ViedoModal src={card.attributes.youtubeVideoId} onConfirm={onModalHandlerAndBackDropClick}/>}
                          </div>
                      </div>
-                     <div className={classes.cardsynopsis}>
+                     <div className={ [classes.cardsynopsis , applyScroll ? classes.applyScrollOnHover : ''].join(' ')}>
                          {card.attributes.synopsis}
                      </div>
                      <div className={classes.cardTitle}>

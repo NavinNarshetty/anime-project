@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Container, Typography, Grid } from "@material-ui/core";
+import { Container, Typography, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import cssClasses from "./Home.module.css";
 import IconCard from "../../components/IconCard/IconCard";
@@ -93,15 +93,20 @@ const Home = () => {
     fetchTopAnime,
   ]);
 
-
-  const redireactToDetailPage =(id)=>{
-    history.push(`/anime/${id}`)
-  }
+  const redireactToDetailPage = (id) => {
+    history.push(`/anime/${id}`);
+  };
 
   let imagecard = "";
   if (trendingAnime && trendingAnime.length > 0) {
     imagecard = trendingAnime.slice(0, 5).map((card) => {
-      return <ImageCard onClick={redireactToDetailPage} key={card.id} response={card} />;
+      return (
+        <ImageCard
+          onClick={redireactToDetailPage}
+          key={card.id}
+          response={card}
+        />
+      );
     });
   } else {
   }
@@ -109,29 +114,54 @@ const Home = () => {
   let mangacard = "";
   if (trendingManga && trendingManga.length > 0) {
     mangacard = trendingManga.slice(0, 5).map((mangacard) => {
-      return <ImageCard onClick={redireactToDetailPage} key={mangacard.id} response={mangacard} />;
+      return (
+        <ImageCard
+          onClick={redireactToDetailPage}
+          key={mangacard.id}
+          response={mangacard}
+        />
+      );
     });
   }
 
   let mostpopularcard = "";
   if (mostpopularAnime && mostpopularAnime.length > 0) {
     mostpopularcard = mostpopularAnime.map((card) => {
-      return <ImageCard onClick={redireactToDetailPage} key={card.id} response={card} />;
+      return (
+        <ImageCard
+          onClick={redireactToDetailPage}
+          key={card.id}
+          response={card}
+        />
+      );
     });
   }
 
   let mostfavoriteanime = "";
   if (mostFavAnime && mostFavAnime.length > 0) {
-    mostfavoriteanime = mostFavAnime.map((card ) => {
-      return <ImageCard onClick={redireactToDetailPage} key={card.id} response={card} />;
+    mostfavoriteanime = mostFavAnime.map((card) => {
+      return (
+        <ImageCard
+          onClick={redireactToDetailPage}
+          key={card.id}
+          response={card}
+        />
+      );
     });
   }
 
   let topAnimeResp = "";
-  if(topAnime && topAnime.length > 0) {
-    topAnimeResp = topAnime.map((card,index)=>{
-        return <ImageListCard key={card.id} response={card} ranking={index + 1}  genere={card.relationships.genres.links.related}/>
-    })
+  if (topAnime && topAnime.length > 0) {
+    topAnimeResp = topAnime.map((card, index) => {
+      return (
+        <ImageListCard
+          key={card.id}
+          response={card}
+          ranking={index + 1}
+          genere={card.relationships.genres.links.related}
+        />
+      );
+    });
   }
 
   return (
@@ -167,25 +197,39 @@ const Home = () => {
         </div>
 
         <div>
-          <h4>TRENDING ANIME</h4>
+          <Grid container justifyContent="space-between">
+            <h4>TRENDING ANIME</h4>
+            <Button color="primary">View All</Button>
+          </Grid>
           <Grid container spacing={2} justifyContent="space-evenly">
             {imagecard}
           </Grid>
         </div>
         <div>
-          <h4>MOST POPULAR ANIME</h4>
+          <Grid container justifyContent="space-between">
+            <h4>MOST POPULAR ANIME</h4>
+            <Button color="primary">View All</Button>
+          </Grid>
           <Grid container spacing={2} justifyContent="space-evenly">
             {mostpopularcard}
           </Grid>
         </div>
         <div>
-          <h4>MOST FAVORED ANIME</h4>
+          <Grid container justifyContent="space-between">
+            <h4>MOST FAVORED ANIME</h4>
+            <Button color="primary">View All</Button>
+          </Grid>
           <Grid container spacing={2} justifyContent="space-evenly">
             {mostfavoriteanime}
           </Grid>
         </div>
         <div>
-          <h4>TRENDING MANGA</h4>
+          <Grid container justifyContent="space-between">
+            <h4>TRENDING MANGA</h4>
+            <Button color="primary">View All</Button>
+          </Grid>
+
+          <Button color="primary">View All</Button>
           <Grid container spacing={2} justifyContent="space-evenly">
             {mangacard}
           </Grid>
